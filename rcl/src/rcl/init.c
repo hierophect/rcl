@@ -47,6 +47,8 @@ extern "C"
 #include "./context_impl.h"
 #include "./init_options_impl.h"
 
+#include "esp_log.h"
+
 rcl_ret_t
 rcl_init(
   int argc,
@@ -54,6 +56,10 @@ rcl_init(
   const rcl_init_options_t * options,
   rcl_context_t * context)
 {
+  // HIERO LOGGING---------------
+  ESP_LOGI("RCLCPY","RCLC INIT REACHED");
+  // ----------------------------
+
   rcl_ret_t fail_ret = RCL_RET_ERROR;
 
   if (argc > 0) {
