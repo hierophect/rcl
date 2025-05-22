@@ -57,7 +57,7 @@ rcl_init(
   rcl_context_t * context)
 {
   // HIERO LOGGING---------------
-  ESP_LOGI("RCLCPY","RCLC INIT REACHED");
+  ESP_LOGW("RCLCPY","RCL Init Reached");
   // ----------------------------
 
   rcl_ret_t fail_ret = RCL_RET_ERROR;
@@ -90,6 +90,8 @@ rcl_init(
     RCL_SET_ERROR_MSG("rcl_init called on an already initialized context");
     return RCL_RET_ALREADY_INIT;
   }
+
+  ESP_LOGW("RCLCPY","B1");
 
 #ifdef RCL_MICROROS_COMPLETE_IMPL
   // Zero initialize global arguments.
@@ -135,6 +137,8 @@ rcl_init(
       memcpy(context->impl->argv[i], argv[i], argv_i_length);
     }
   }
+
+  ESP_LOGW("RCLCPY","B2");
 
 #ifdef RCL_MICROROS_COMPLETE_IMPL
   // Parse the ROS specific arguments.
@@ -187,6 +191,8 @@ rcl_init(
         "Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.");
     }
   }
+
+  ESP_LOGW("RCLCPY","B3");
 
   const rmw_discovery_options_t original_discovery_options =
     options->impl->rmw_init_options.discovery_options;
@@ -246,6 +252,9 @@ rcl_init(
         "ROS_STATIC_PEERS will be ignored.");
     }
   }
+
+
+  ESP_LOGW("RCLCPY","B4");
 
   const char * discovery_range_string =
     rcl_automatic_discovery_range_to_string(discovery_options->automatic_discovery_range);
@@ -316,6 +325,8 @@ rcl_init(
   }
 #endif //RCL_MICROROS
 
+  ESP_LOGW("RCLCPY","B5");
+
   // Initialize rmw_init.
   rmw_ret_t rmw_ret = rmw_init(
     &(context->impl->init_options.impl->rmw_init_options),
@@ -327,6 +338,8 @@ rcl_init(
   }
 
   TRACETOOLS_TRACEPOINT(rcl_init, (const void *)context);
+
+  ESP_LOGW("RCLCPY","B6");
 
   return RCL_RET_OK;
 fail:
